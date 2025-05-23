@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html,
+  body,
+  #root {
+    @apply h-full w-full m-0 p-0 overflow-hidden;
+  }
+
+  body {
+    @apply font-sans text-editor-text bg-editor-bg;
+  }
+}
+
+@layer components {
+  .monaco-editor-wrapper {
+    @apply h-full w-full;
+  }
+
+  .split-view {
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+
+  .resizable-panel {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .resize-handle {
+    @apply absolute top-0 w-1 h-full bg-editor-border cursor-col-resize hover:bg-blue-500 transition-colors;
+    right: -2px;
+    z-index: 10;
+  }
+
+  .resize-handle-horizontal {
+    @apply absolute left-0 w-full h-2 cursor-row-resize transition-all;
+    top: -4px;
+    z-index: 10;
+    background: transparent;
+  }
+
+  .resize-handle-horizontal:hover {
+    @apply bg-blue-500 bg-opacity-50;
+  }
+
+  .resize-handle-horizontal::before {
+    content: '';
+    @apply absolute left-1/2 top-1/2 w-12 h-1 bg-gray-500 rounded-full;
+    transform: translate(-50%, -50%);
+  }
+
+  .resize-handle-horizontal:hover::before {
+    @apply bg-blue-400;
+  }
+}
