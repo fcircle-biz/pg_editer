@@ -1,110 +1,211 @@
-# PG Editor - Browser-based IDE
+# PG Editor - ブラウザベースIDE
 
-A lightweight, browser-based IDE with offline support, built according to the specifications provided.
+<p align="center">
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/PWA-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
+</p>
 
-## Features
+PG Editorは、インストール不要でブラウザ上で動作する軽量なIDEです。オフライン対応、ファイル管理、コード実行環境を備え、どこでもコーディングが可能です。
 
-### Core Features (Implemented)
-- **Monaco Editor Integration** - Full-featured code editor with syntax highlighting for JavaScript, TypeScript, HTML, CSS, Python, and more
-- **File Management** - Virtual file system with IndexedDB persistence
-- **Code Execution** - Sandboxed JavaScript/TypeScript execution
-- **Terminal Integration** - Built-in terminal using xterm.js
-- **Theme Support** - Light/Dark mode switching
-- **PWA Support** - Works offline with Service Worker caching
-- **Drag & Drop** - Drop files to open them in the editor
-- **File System Access API** - Save files directly to your local file system
+## 🚀 特徴
 
-### UI/UX
-- **Split Layout** - Resizable sidebar, editor area, and terminal
-- **Tabbed Interface** - Multiple files open simultaneously
-- **Status Bar** - Shows current editor status and quick actions
-- **Responsive Design** - Works on screens 768px and wider
+### 主要機能
+- **🖊️ 高機能エディタ** - Monaco Editor（VS Codeと同じエディタ）を採用
+- **📁 ファイル管理** - 仮想ファイルシステムでファイルとフォルダを管理
+- **▶️ コード実行** - JavaScript/TypeScriptをサンドボックス環境で実行
+- **💻 統合ターミナル** - xterm.jsによる組み込みターミナル
+- **🎨 テーマ切り替え** - ダーク/ライトモード対応
+- **📱 PWA対応** - オフラインでも使用可能
+- **📤 ドラッグ&ドロップ** - ファイルをドラッグ&ドロップで開く
+- **💾 ローカル保存** - File System Access APIでローカルファイルに保存
 
-## Tech Stack
+### 対応言語
+- JavaScript / TypeScript
+- HTML / CSS / SCSS
+- JSON
+- Markdown
+- Python（表示のみ）
+- その他多数の言語の構文ハイライト
 
-- **Frontend Framework**: React 18 with TypeScript
-- **Editor**: Monaco Editor 0.50+
-- **Terminal**: xterm.js 5.x
-- **Build Tool**: Vite with esbuild
-- **Styling**: Tailwind CSS
-- **Storage**: IndexedDB (via idb library)
-- **PWA**: vite-plugin-pwa with Workbox
+## 📦 インストール
 
-## Getting Started
+### 前提条件
+- Node.js 18.0以上
+- npm または yarn
 
-### Development
+### セットアップ
 
 ```bash
-# Install dependencies
+# リポジトリをクローン
+git clone git@github.com:fcircle-biz/pg_editer.git
+cd pg_editer
+
+# 依存関係をインストール
 npm install
 
-# Start development server
+# 開発サーバーを起動
 npm run dev
-
-# Type checking
-npm run typecheck
-
-# Linting
-npm run lint
-
-# Format code
-npm run format
 ```
 
-### Production Build
+ブラウザで http://localhost:5173 を開いてください。
+
+## 🎯 使い方
+
+### 基本操作
+
+#### ファイルの作成
+1. サイドバーの「New File」ボタンをクリック
+2. ファイル名を入力（例：`index.js`）
+
+#### コードの実行
+1. JavaScriptまたはTypeScriptファイルを開く
+2. コードを入力
+3. ターミナルで `run` コマンドを実行
+
+#### ファイルの保存
+- **Ctrl/Cmd + S** でファイルを保存
+- ローカルファイルシステムまたはブラウザストレージに保存可能
+
+### ターミナルコマンド
+```bash
+help    # ヘルプを表示
+clear   # ターミナルをクリア
+run     # 現在のファイルを実行
+echo    # テキストを表示
+date    # 現在時刻を表示
+```
+
+### ショートカットキー
+| キー | 動作 |
+|------|------|
+| Ctrl/Cmd + S | ファイルを保存 |
+| Ctrl/Cmd + P | ファイルを検索（開発中） |
+| Ctrl/Cmd + Shift + P | コマンドパレット（開発中） |
+
+## 🏗️ アーキテクチャ
+
+```
+┌───────────────┐
+│  UI Layer     │  React + TypeScript + Tailwind CSS
+├───────────────┤
+│  IDE Core     │  Monaco Editor
+│               │  xterm.js（ターミナル）
+├───────────────┤
+│  Runtime Hub  │  Web Workers / Sandboxed IFrame
+├───────────────┤
+│  Storage      │  IndexedDB / File System Access API
+└───────────────┘
+```
+
+### 技術スタック
+- **フロントエンド**: React 18, TypeScript 5
+- **エディタ**: Monaco Editor 0.50+
+- **ターミナル**: xterm.js 5.x
+- **ビルドツール**: Vite 5
+- **スタイリング**: Tailwind CSS
+- **テスト**: Vitest, Playwright
+- **ストレージ**: IndexedDB (idb)
+
+## 🧪 開発
+
+### スクリプト
 
 ```bash
-# Build for production
+# 開発サーバー起動
+npm run dev
+
+# プロダクションビルド
 npm run build
 
-# Preview production build
+# プレビュー
 npm run preview
+
+# テスト実行
+npm run test
+
+# カバレッジ付きテスト
+npm run test:coverage
+
+# E2Eテスト
+npm run test:e2e
+
+# リント
+npm run lint
+
+# フォーマット
+npm run format
+
+# 型チェック
+npm run typecheck
 ```
 
-## Project Structure
+### プロジェクト構成
 
 ```
 pg_editor/
 ├── src/
-│   ├── components/       # React components
-│   ├── contexts/        # React contexts (Theme, FileSystem, Settings)
-│   ├── hooks/           # Custom React hooks
-│   ├── lib/            # Utility libraries (runtime, file access)
-│   ├── types/          # TypeScript type definitions
-│   └── main.tsx        # Application entry point
-├── public/             # Static assets
-└── docs/              # Documentation
+│   ├── components/      # UIコンポーネント
+│   ├── contexts/        # React Context
+│   ├── hooks/           # カスタムフック
+│   ├── lib/             # ユーティリティ
+│   ├── types/           # TypeScript型定義
+│   └── test/            # テスト関連
+├── public/              # 静的ファイル
+├── e2e/                 # E2Eテスト
+└── docs/                # ドキュメント
 ```
 
-## Usage
+## 🤝 コントリビューション
 
-1. **Creating Files**: Click "New File" in the sidebar or drag & drop files
-2. **Editing**: Click on a file in the file tree to open it
-3. **Running Code**: Type `run` in the terminal to execute the current file
-4. **Saving Files**: Press `Ctrl/Cmd + S` to save (choose between browser storage or local file system)
-5. **Theme Toggle**: Click the sun/moon icon in the status bar
+1. このリポジトリをフォーク
+2. 機能ブランチを作成 (`git checkout -b feature/amazing-feature`)
+3. 変更をコミット (`git commit -m 'Add some amazing feature'`)
+4. ブランチにプッシュ (`git push origin feature/amazing-feature`)
+5. プルリクエストを作成
 
-## Browser Support
+### コーディング規約
+- ESLintとPrettierの設定に従う
+- TypeScriptの厳格モードを使用
+- テストを書く（目標カバレッジ: 80%以上）
 
-- Chrome/Edge 90+
-- Firefox 88+
-- Safari 14+
+## 📄 ライセンス
 
-## Security
+このプロジェクトはMITライセンスの下で公開されています。詳細は[LICENSE](LICENSE)ファイルを参照してください。
 
-- Code execution happens in sandboxed iframes
-- No server-side execution
-- All data stored locally in the browser
+## 🚧 今後の機能
 
-## License
+- [ ] Git統合
+- [ ] 複数ファイルの同時編集（スプリットビュー）
+- [ ] プラグインシステム
+- [ ] Python実行環境（Pyodide）
+- [ ] リアルタイムコラボレーション
+- [ ] AI補完機能
+- [ ] より多くの言語サポート
 
-MIT License
+## 🐛 既知の問題
 
-## Future Enhancements
+- 大きなファイル（>5MB）を開くとパフォーマンスが低下する
+- Safari でFile System Access APIが利用できない
+- モバイルデバイスでの編集体験が限定的
 
-- [ ] ESLint and Prettier WebWorker integration
-- [ ] Python execution via Pyodide
-- [ ] Git integration
-- [ ] Plugin system
-- [ ] Collaborative editing
-- [ ] AI-powered code completion
+## 📞 サポート
+
+問題や質問がある場合は、[Issues](https://github.com/fcircle-biz/pg_editer/issues)でお知らせください。
+
+## 🙏 謝辞
+
+このプロジェクトは以下のオープンソースプロジェクトを使用しています：
+
+- [Monaco Editor](https://microsoft.github.io/monaco-editor/)
+- [xterm.js](https://xtermjs.org/)
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+
+---
+
+<p align="center">
+  Made with ❤️ by the PG Editor Team
+</p>
